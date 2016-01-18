@@ -78,10 +78,10 @@ describe('grouped-modules.js', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 		const groupName = 'module';
 		const groupPath = '../path';
-		const absGroupPath = path.resolve(groupPath);
+		const absGroupPath = path.resolve(__dirname, groupPath);
 
 		const innerModulePath = 'inner/module';
-		const absInnerModulePath = path.resolve(groupPath, innerModulePath);
+		const absInnerModulePath = path.resolve(absGroupPath, innerModulePath);
 
 		gm(groupName).assignTo(groupPath);
 
