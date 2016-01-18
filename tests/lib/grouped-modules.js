@@ -96,18 +96,9 @@ describe('grouped-modules.js', () => {
 		res.should.be.eql(absInnerModulePath);
 	});
 
-	it('should throw error if there is no group added to add inner', () => {
+	it('should throw error if parent group name is not a string', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
-		const groupName = 'root';
-
-		const errorMessage = `There is no group with '${groupName}' name. Please use gm('${groupName}').assignTo('path/to/group')`;
-
-		gm(groupName).in.should.throw(errorMessage);
-	});
-
-	it('should throw error if inner group name is not a string', () => {
-		const gm = requireOneTime(GROUPED_MODULES);
-		const errorMessage = 'The inner group path must be a string';
+		const errorMessage = 'The parent group name must be a string';
 
 		gm('root').assignTo('root');
 
@@ -120,9 +111,18 @@ describe('grouped-modules.js', () => {
 		gm('root').in.bind(null, /rth/).should.throw(errorMessage);
 	});
 
-	it('should throw error if inner group name is not a string', () => {
+	it('should throw error if there is no group added to add inner', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
-		const errorMessage = 'Inner group name must not be equal to group name';
+		const groupName = 'root';
+
+		const errorMessage = `There is no parent group with '${groupName}' name. Please use gm('${groupName}').assignTo('path/to/group')`;
+
+		gm('innerGroupName').in.bind(null, groupName).should.throw(errorMessage);
+	});
+
+	it('should throw error if parent group name is as the group name', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		const errorMessage = 'The parent group name must not be equal to group name';
 
 		gm('root').assignTo('root');
 
@@ -133,7 +133,7 @@ describe('grouped-modules.js', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 		const groupName = 'module';
 		const groupPath = '../path';
-		const absGroupPath = path.resolve(groupPath);
+		const absGroupPath = path.resolve(__dirname, groupPath);
 
 		const innerGroupName = 'innerGroupName';
 		const innerGroupPath = 'innerGroup/path';
