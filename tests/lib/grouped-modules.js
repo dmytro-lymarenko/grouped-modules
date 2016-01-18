@@ -19,25 +19,55 @@ describe('grouped-modules.js', () => {
 
 	it('should throw error if there is no group name in gm', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
+		const errorMessage = 'Not specified group name as string or groups as object or array';
 
-		gm.should.throw('Not specified group name as string or groups as object or array');
+		gm.should.throw(errorMessage);
 	});
 
 	it('should throw error if group name is not a string, object or array', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
+		const errorMessage = 'Group name must be a string, object or array';
 
-		gm.bind(null, 4).should.throw('Group name must be a string, object or array');
-		gm.bind(null, true).should.throw('Group name must be a string, object or array');
-		gm.bind(null, () => {}).should.throw('Group name must be a string, object or array');
-		gm.bind(null, /re/).should.throw('Group name must be a string, object or array');
+		gm.bind(null, 4).should.throw(errorMessage);
+		gm.bind(null, true).should.throw(errorMessage);
+		gm.bind(null, () => {}).should.throw(errorMessage);
+		gm.bind(null, /re/).should.throw(errorMessage);
 	});
 
 	it('should throw error if there is no group added', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
-
 		const groupName = 'root';
 
-		gm(groupName).get.should.throw(`There is no group with '${groupName}' name. Please use gm('${groupName}').assignTo('path/to/group').`);
+		const errorMessage = `There is no group with '${groupName}' name. Please use gm('${groupName}').assignTo('path/to/group')`;
+
+		gm(groupName).get.should.throw(errorMessage);
+	});
+
+	it('should return nothing if we call it with object or array', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		
+		should(gm({
+			name: 'root',
+			path: 'root'
+		})).be.undefined();
+
+		should(gm([{
+			name: 'root',
+			path: 'root'
+		},{
+			name: 'root2',
+			path: 'root2'
+		}
+		])).be.undefined();
+	});
+
+	it('should throw error if group path is not a string in assignTo method', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		const errorMessage = 'The group path must be a string';
+
+		gm('root').assignTo.bind(null, 2).should.throw(errorMessage);
+		gm('root').assignTo.bind(null, false).should.throw(errorMessage);
+		gm('root').assignTo.bind(null, 2).should.throw(errorMessage);
 	});
 
 	it('should save group name and path to it that must be changed to absolute', () => {
