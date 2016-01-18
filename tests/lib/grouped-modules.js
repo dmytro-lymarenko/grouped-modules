@@ -96,6 +96,21 @@ describe('grouped-modules.js', () => {
 		res.should.be.eql(absInnerModulePath);
 	});
 
+	it('should throw error if inner group name is not a string', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		const errorMessage = 'The inner group path must be a string';
+
+		gm('root').assignTo('root');
+
+		gm('root').in.bind(null, 2).should.throw(errorMessage);
+		gm('root').in.bind(null, false).should.throw(errorMessage);
+		gm('root').in.bind(null, []).should.throw(errorMessage);
+		gm('root').in.bind(null, {}).should.throw(errorMessage);
+		gm('root').in.bind(null, undefined).should.throw(errorMessage);
+		gm('root').in.bind(null, () => {}).should.throw(errorMessage);
+		gm('root').in.bind(null, /rth/).should.throw(errorMessage);
+	});
+
 	it('should build inner groups', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 		const groupName = 'module';
