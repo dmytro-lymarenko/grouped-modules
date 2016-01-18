@@ -212,35 +212,35 @@ describe('grouped-modules.js', () => {
 		
 		res = gm('root').get();
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path'));
+		res.should.be.eql(path.resolve(__dirname, '../path'));
 
 		res = gm('root').get('something');
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'something'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'something'));
 
 		res = gm('group').get();
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'groupPath/'));
 
 		res = gm('group').get('file');
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/', 'file'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'groupPath/', 'file'));
 
 		res = gm('other group').get();
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/', 'other group'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'otherFolder'));
 
 		res = gm('other group').get('index');
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/', 'other group', 'index'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'otherFolder', 'index'));
 
 		res = gm('test').get();
 		should(res).be.String();
-		res.should.be.eql(path.resolve('test'));
+		res.should.be.eql(path.resolve(__dirname, 'test'));
 
 		res = gm('test').get('something');
 		should(res).be.String();
-		res.should.be.eql(path.resolve('test', 'something'));
+		res.should.be.eql(path.resolve(__dirname, 'test', 'something'));
 	});
 
 	it('should configure gm using object as parameter', () => {
@@ -278,26 +278,26 @@ describe('grouped-modules.js', () => {
 		
 		res = gm('root').get();
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path'));
+		res.should.be.eql(path.resolve(__dirname, '../path'));
 
 		res = gm('root').get('something');
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'something'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'something'));
 
 		res = gm('group').get();
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'groupPath/'));
 
 		res = gm('group').get('file');
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/', 'file'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'groupPath/', 'file'));
 
 		res = gm('other group').get();
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/', 'other group'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'otherFolder'));
 
 		res = gm('other group').get('index');
 		should(res).be.String();
-		res.should.be.eql(path.resolve('../path', 'groupPath/', 'other group', 'index'));
+		res.should.be.eql(path.resolve(__dirname, '../path', 'otherFolder', 'index'));
 	});
 });
