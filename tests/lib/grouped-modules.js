@@ -96,6 +96,15 @@ describe('grouped-modules.js', () => {
 		res.should.be.eql(absInnerModulePath);
 	});
 
+	it('should throw error if there is no group added to add inner', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		const groupName = 'root';
+
+		const errorMessage = `There is no group with '${groupName}' name. Please use gm('${groupName}').assignTo('path/to/group')`;
+
+		gm(groupName).in.should.throw(errorMessage);
+	});
+
 	it('should throw error if inner group name is not a string', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 		const errorMessage = 'The inner group path must be a string';
@@ -109,6 +118,15 @@ describe('grouped-modules.js', () => {
 		gm('root').in.bind(null, undefined).should.throw(errorMessage);
 		gm('root').in.bind(null, () => {}).should.throw(errorMessage);
 		gm('root').in.bind(null, /rth/).should.throw(errorMessage);
+	});
+
+	it('should throw error if inner group name is not a string', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		const errorMessage = 'Inner group name must not be equal to group name';
+
+		gm('root').assignTo('root');
+
+		gm('root').in.bind(null, 'root').should.throw(errorMessage);
 	});
 
 	it('should build inner groups', () => {
