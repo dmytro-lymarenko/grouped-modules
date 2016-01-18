@@ -20,16 +20,16 @@ describe('grouped-modules.js', () => {
 	it('should throw error if there is no group name in gm', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 
-		gm.should.throw('Not specified group name');
+		gm.should.throw('Not specified group name as string or groups as object or array');
 	});
 
 	it('should throw error if group name is not a string, object or array', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 
-		gm.bind(null, 4).should.throw('Group name must be a string or object or array');
-		gm.bind(null, true).should.throw('Group name must be a string or object or array');
-		gm.bind(null, () => {}).should.throw('Group name must be a string or object or array');
-		gm.bind(null, /re/).should.throw('Group name must be a string or object or array');
+		gm.bind(null, 4).should.throw('Group name must be a string, object or array');
+		gm.bind(null, true).should.throw('Group name must be a string, object or array');
+		gm.bind(null, () => {}).should.throw('Group name must be a string, object or array');
+		gm.bind(null, /re/).should.throw('Group name must be a string, object or array');
 	});
 
 	it('should throw error if there is no group added', () => {
