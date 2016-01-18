@@ -67,7 +67,11 @@ describe('grouped-modules.js', () => {
 
 		gm('root').assignTo.bind(null, 2).should.throw(errorMessage);
 		gm('root').assignTo.bind(null, false).should.throw(errorMessage);
-		gm('root').assignTo.bind(null, 2).should.throw(errorMessage);
+		gm('root').assignTo.bind(null, []).should.throw(errorMessage);
+		gm('root').assignTo.bind(null, {}).should.throw(errorMessage);
+		gm('root').assignTo.bind(null, undefined).should.throw(errorMessage);
+		gm('root').assignTo.bind(null, () => {}).should.throw(errorMessage);
+		gm('root').assignTo.bind(null, /rth/).should.throw(errorMessage);
 	});
 
 	it('should save group name and path to it that must be changed to absolute', () => {
