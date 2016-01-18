@@ -1,1 +1,1 @@
-module.exports = require('./lib/package');
+module.exports = require('./lib/grouped-modules');

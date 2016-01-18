@@ -1,18 +1,17 @@
 {
-  "name": "package",
-  "version": "0.0.1",
-  "description": "Package",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha --require tests/setup.js --recursive tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dmytro-lymarenko/geometry-vector2d.git"
-  },
-  "author": "dmytro-lymarenko",
-  "devDependencies": {},
-  "dependencies": {
-    "path": "^0.12.7"
-  }
+	"name": "grouped-modules",
+	"version": "0.0.1",
+	"description": "Grouped modules",
+	"main": "index.js",
+	"scripts": {
+		"test": "mocha --require tests/setup.js --recursive tests"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dmytro-lymarenko/grouped-modules.git"
+	},
+	"author": "dmytro.lymarenko",
+	"dependencies": {
+		"path": "^0.12.7"
+	}
 }
