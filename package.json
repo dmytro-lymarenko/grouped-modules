@@ -1,6 +1,6 @@
 {
 	"name": "grouped-modules",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Grouped modules",
 	"main": "index.js",
 	"scripts": {
