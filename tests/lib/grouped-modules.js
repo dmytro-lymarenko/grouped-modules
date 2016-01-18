@@ -137,7 +137,7 @@ describe('grouped-modules.js', () => {
 
 		const innerGroupName = 'innerGroupName';
 		const innerGroupPath = 'innerGroup/path';
-		const absInnerGroupPath = path.resolve(groupPath, innerGroupPath);
+		const absInnerGroupPath = path.resolve(absGroupPath, innerGroupPath);
 
 		const innerModulePath = 'inner/module';
 		const absInnerModulePath = path.resolve(absInnerGroupPath, innerModulePath);
