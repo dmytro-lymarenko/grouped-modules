@@ -4,7 +4,7 @@
 	"description": "Grouped modules",
 	"main": "index.js",
 	"scripts": {
-		"test": "mocha --require tests/setup.js --recursive tests"
+		"test": "mocha --recursive tests"
 	},
 	"repository": {
 		"type": "git",
