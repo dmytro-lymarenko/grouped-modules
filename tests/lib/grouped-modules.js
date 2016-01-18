@@ -12,9 +12,10 @@ function requireOneTime(pathToModule) {
 }
 
 describe('grouped-modules.js', () => {
-	it('should work', () => {
-		true.should.be.true();
-	});
+	it('gm should be a function', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		should(gm).be.a.Function();
+	});	
 
 	it('should throw error if there is no group name in gm', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
