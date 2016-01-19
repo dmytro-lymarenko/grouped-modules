@@ -47,6 +47,9 @@ function gmString(groupName) {
 		},
 
 		assignTo(groupPath) {
+			if(groups[groupName] !== undefined) {
+				throw new Error(`The group '${groupName}' is already exist`);
+			}
 			if(typeof groupPath !== 'string') {
 				throw new TypeError('The group path must be a string');
 			}
@@ -65,6 +68,9 @@ function gmString(groupName) {
 			}
 			return {
 				assignTo(groupPath) {
+					if(groups[groupName] !== undefined) {
+						throw new Error(`The group '${groupName}' is already exist`);
+					}
 					if(typeof groupPath !== 'string') {
 						throw new TypeError('The group path must be a string');
 					}

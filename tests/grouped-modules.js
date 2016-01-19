@@ -55,13 +55,22 @@ describe('grouped-modules.js', () => {
 		})).be.undefined();
 
 		should(gm([{
-			name: 'root',
+			name: 'root1',
 			path: 'root'
 		},{
 			name: 'root2',
 			path: 'root2'
 		}
 		])).be.undefined();
+	});
+
+	it('should throw error if group name is already exist', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		const groupName = 'root';
+		const errorMessage = `The group '${groupName}' is already exist`;
+
+		gm(groupName).assignTo('somewhere');
+		gm(groupName).assignTo.bind(null, 'here').should.throw(errorMessage);
 	});
 
 	it('should throw error if group path is not a string in assignTo method', () => {
@@ -130,6 +139,16 @@ describe('grouped-modules.js', () => {
 		gm('root').assignTo('root');
 
 		gm('root').in.bind(null, 'root').should.throw(errorMessage);
+	});
+
+	it('should throw error if group name is already exist in in.assignTo', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		const groupName = 'root';
+		const errorMessage = `The group '${groupName}' is already exist`;
+
+		gm('parent').assignTo('root');
+		gm(groupName).assignTo('somewhere');
+		gm(groupName).in('parent').assignTo.bind(null, 'here').should.throw(errorMessage);
 	});
 
 	it('should throw error if group path is not a string in in.assignTo method', () => {
@@ -297,7 +316,7 @@ describe('grouped-modules.js', () => {
 		]).should.throw('The \'childred\' property must be either array or object');
 		gm.bind(null, [
 			{
-				name: 'root',
+				name: 'root1',
 				path: '../path',
 				children: [
 					{
@@ -312,7 +331,7 @@ describe('grouped-modules.js', () => {
 				]
 			},
 			{
-				name: 'test',
+				name: 'test1',
 				path: 'test'
 			}
 		]).should.throw('The \'childred\' property must be either array or object');
