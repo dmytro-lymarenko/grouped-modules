@@ -170,6 +170,150 @@ describe('grouped-modules.js', () => {
 		res.should.be.eql(absInnerModulePath);
 	});
 
+	it('should throw error if name property is incorrect', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		gm.bind(null, [
+			{
+				path: '../path',
+				children: [
+					{
+						name: 'group',
+						path: 'groupPath/'
+					},
+					{
+						name: 'other group',
+						path: 'otherFolder',
+						children: [
+							{
+								name: 'inner',
+								path: 'inner'
+							}
+						]
+					}
+				]
+			},
+			{
+				name: 'test',
+				path: 'test'
+			}
+		]).should.throw('The \'name\' property must be a string');
+		gm.bind(null, [
+			{
+				name: 'root',
+				path: '../path',
+				children: [
+					{
+						name: 'group',
+						path: 'groupPath/'
+					},
+					{
+						name: 'other group',
+						path: 'otherFolder',
+						children: [
+							{
+								path: 'inner'
+							}
+						]
+					}
+				]
+			},
+			{
+				name: 'test',
+				path: 'test'
+			}
+		]).should.throw('The \'name\' property must be a string');
+	});
+
+	it('should throw error if path property is incorrect', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		gm.bind(null, [
+			{
+				name: 'root',
+				children: [
+					{
+						name: 'group',
+						path: 'groupPath/'
+					},
+					{
+						name: 'other group',
+						path: 'otherFolder',
+						children: [
+							{
+								name: 'inner',
+								path: 'inner'
+							}
+						]
+					}
+				]
+			},
+			{
+				name: 'test',
+				path: 'test'
+			}
+		]).should.throw('The \'path\' property must be a string');
+		gm.bind(null, [
+			{
+				name: 'root',
+				path: '../path',
+				children: [
+					{
+						name: 'group',
+						path: 'groupPath/'
+					},
+					{
+						name: 'other group',
+						children: [
+							{
+								name: 'inner',
+								path: 'inner'
+							}
+						]
+					}
+				]
+			},
+			{
+				name: 'test',
+				path: 'test'
+			}
+		]).should.throw('The \'path\' property must be a string');
+	});
+
+	it('should throw error if children property is incorrect', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		gm.bind(null, [
+			{
+				name: 'root',
+				path: '../path',
+				children: 'children'
+			},
+			{
+				name: 'test',
+				path: 'test'
+			}
+		]).should.throw('The \'childred\' property must be either array or object');
+		gm.bind(null, [
+			{
+				name: 'root',
+				path: '../path',
+				children: [
+					{
+						name: 'group',
+						path: 'groupPath/'
+					},
+					{
+						name: 'other group',
+						path: 'otherFolder',
+						children: function() {}
+					}
+				]
+			},
+			{
+				name: 'test',
+				path: 'test'
+			}
+		]).should.throw('The \'childred\' property must be either array or object');
+	});
+
 	it('should configure gm using array of objects as parameter', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 		const groups = [

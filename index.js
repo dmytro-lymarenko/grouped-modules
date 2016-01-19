@@ -21,7 +21,7 @@ function gmInDeep(parentGroupName, children) {
 		if(group.children !== undefined) {
 			if(Array.isArray(group.children)) {
 				gmInDeep(group.name, group.children);
-			} else if(typeof group === 'object') {
+			} else if(typeof group.children === 'object') {
 				gmInDeep(group.name, [group.children]);
 			} else {
 				throw new TypeError('The \'childred\' property must be either array or object');
@@ -98,7 +98,7 @@ function gm(groupName) {
 		if(group.children !== undefined) {
 			if(Array.isArray(group.children)) {
 				gmInDeep(group.name, group.children);
-			} else if(typeof group === 'object') {
+			} else if(typeof group.children === 'object') {
 				gmInDeep(group.name, [group.children]);
 			} else {
 				throw new TypeError('The \'childred\' property must be either array or object');
