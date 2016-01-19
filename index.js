@@ -44,7 +44,7 @@ function gm(groupName) {
 
 	if(typeofGroupName === 'string') {
 		return {
-			get(modulePath) {
+			getPath(modulePath) {
 				if(groups[groupName] === undefined) {
 					throw new Error(`There is no group with '${groupName}' name. Please use gm('${groupName}').assignTo('path/to/group')`);
 				}
