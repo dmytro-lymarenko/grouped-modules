@@ -29,7 +29,7 @@ describe('grouped-modules.js', () => {
 
 	it('should throw error if group name is not a string, object or array', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
-		const errorMessage = 'Group name must be a string, object or array';
+		const errorMessage = 'First parameter must be a string, object or array';
 
 		gm.bind(null, 4).should.throw(errorMessage);
 		gm.bind(null, true).should.throw(errorMessage);
