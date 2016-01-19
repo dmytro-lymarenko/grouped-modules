@@ -54,6 +54,10 @@ function gm(groupName) {
 				return path.resolve(groups[groupName], modulePath);
 			},
 
+			require(modulePath) {
+				return require(this.getPath(modulePath));
+			},
+
 			assignTo(groupPath) {
 				if(typeof groupPath !== 'string') {
 					throw new TypeError('The group path must be a string');

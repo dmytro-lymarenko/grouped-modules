@@ -5,8 +5,12 @@ const path = require('path');
 
 const GROUPED_MODULES = '../index.js';
 
-function requireOneTime(pathToModule) {
+function clearCache(pathToModule) {
 	delete require.cache[require.resolve(pathToModule)];
+}
+
+function requireOneTime(pathToModule) {
+	clearCache(pathToModule);
 	return require(pathToModule);
 }
 
@@ -428,5 +432,17 @@ describe('grouped-modules.js', () => {
 		res = gm('other group').getPath('index');
 		should(res).be.String();
 		res.should.be.eql(path.resolve(__dirname, '../path', 'otherFolder', 'index'));
+	});
+
+	it('should require module', () => {
+		const gm = requireOneTime(GROUPED_MODULES);
+		gm('root').assignTo('./');
+
+		const actual = gm('root').require('someModuleForTests');
+		clearCache('./someModuleForTests');
+		const expected = require('./someModuleForTests');
+
+		actual.should.be.an.Object();
+		actual.should.be.eql(expected);
 	});
 });
