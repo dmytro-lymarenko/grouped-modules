@@ -1,10 +1,9 @@
 'use strict';
 const proxyquire = require('proxyquire').noPreserveCache();
-const sinon = require('sinon');
 const should = require('should');
 const path = require('path');
 
-const GROUPED_MODULES = '../../lib/grouped-modules';
+const GROUPED_MODULES = '../index.js';
 
 function requireOneTime(pathToModule) {
 	delete require.cache[require.resolve(pathToModule)];
@@ -15,7 +14,7 @@ describe('grouped-modules.js', () => {
 	it('gm should be a function', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
 		should(gm).be.a.Function();
-	});	
+	});
 
 	it('should throw error if there is no group name in gm', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
@@ -173,13 +172,6 @@ describe('grouped-modules.js', () => {
 
 	it('should configure gm using array of objects as parameter', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
-		//gm('group').assignTo('../../'); // set group path
-		//gm('group').get(); // return group path
-		//gm('group').get('module name'); // return path to module name that is in group
-		//gm('new group').in('group').assignTo('path to new group relatively to group path');
-		// ...
-		//gm('new group').get();
-		// or
 		const groups = [
 			{
 				name: 'root',
@@ -245,13 +237,6 @@ describe('grouped-modules.js', () => {
 
 	it('should configure gm using object as parameter', () => {
 		const gm = requireOneTime(GROUPED_MODULES);
-		//gm('group').assignTo('../../'); // set group path
-		//gm('group').get(); // return group path
-		//gm('group').get('module name'); // return path to module name that is in group
-		//gm('new group').in('group').assignTo('path to new group relatively to group path');
-		// ...
-		//gm('new group').get();
-		// or
 		const group = {
 			name: 'root',
 			path: '../path',
