@@ -8,25 +8,33 @@ function getDirName() {
 	return path.dirname(module.parent.filename);
 }
 
+function gmCheckMainField(group) {
+	if(typeof group.name !== 'string') {
+		throw new TypeError('The \'name\' property must be a string');
+	}
+	if(typeof group.path !== 'string') {
+		throw new TypeError('The \'path\' property must be a string');
+	}
+}
+
+function gmCheckChildren(group) {
+	if(group.children !== undefined) {
+		if(Array.isArray(group.children)) {
+			return gmInDeep(group.name, group.children);
+		}
+		if(typeof group.children === 'object') {
+			return gmInDeep(group.name, [group.children]);
+		}
+		throw new TypeError('The \'childred\' property must be either array or object');
+	}
+}
+
 function gmInDeep(parentGroupName, children) {
 	for(let i = 0; i < children.length; i++) {
 		let group = children[i];
-		if(typeof group.name !== 'string') {
-			throw new TypeError('The \'name\' property must be a string');
-		}
-		if(typeof group.path !== 'string') {
-			throw new TypeError('The \'path\' property must be a string');
-		}
-		gm(group.name).in(parentGroupName).assignTo(group.path);
-		if(group.children !== undefined) {
-			if(Array.isArray(group.children)) {
-				gmInDeep(group.name, group.children);
-			} else if(typeof group.children === 'object') {
-				gmInDeep(group.name, [group.children]);
-			} else {
-				throw new TypeError('The \'childred\' property must be either array or object');
-			}
-		}
+		gmCheckMainField(group);
+		gmString(group.name).in(parentGroupName).assignTo(group.path);
+		gmCheckChildren(group);
 	}
 }
 
@@ -84,22 +92,9 @@ function gmString(groupName) {
 function gmArray(groups) {
 	for(let i = 0; i < groups.length; i++) {
 		let group = groups[i];
-		if(typeof group.name !== 'string') {
-			throw new TypeError('The \'name\' property must be a string');
-		}
-		if(typeof group.path !== 'string') {
-			throw new TypeError('The \'path\' property must be a string');
-		}
-		gm(group.name).assignTo(group.path);
-		if(group.children !== undefined) {
-			if(Array.isArray(group.children)) {
-				gmInDeep(group.name, group.children);
-			} else if(typeof group.children === 'object') {
-				gmInDeep(group.name, [group.children]);
-			} else {
-				throw new TypeError('The \'childred\' property must be either array or object');
-			}
-		}
+		gmCheckMainField(group);
+		gmString(group.name).assignTo(group.path);
+		gmCheckChildren(group);
 	}
 }
 
